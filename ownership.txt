@@ -1,5 +1,5 @@
 // Example 1:
-// This willl not run since s no longer has ownership of the str.
+// This will run due to the fact that ownership permits multiple references, but only one mutable references
 fn main() {
     let mut s = String::from("hello");
     let ref1 = &s;
@@ -7,21 +7,16 @@ fn main() {
     let ref3 = &ref2;
     s = String::from("goodbye");
     println!("{}", s.to_uppercase());
-    // would be ok if ref3 isn't used but just s
 }
 
-// Example 2: This does not work because you don't specify the lifetime parameter for the return.
-// In addition the reference belongs only to the function. So after you run the function it will
-// disappear. Therefore a simple way is to just return the String
-// statement
+// Example 2: This runs, but you can simply return the string without assigning it to s
 fn drip_drop() -> String {
     let s = String::from("hello world!");
     return s;
 }
 
 // Example 3:
-// This does not work since Vec has not implmented the copy trait. But I feel like we can do a
-// complete clone
+// This works due to the fact that we are copying s1 into s2 by using the clone function
 pub fn main() {
     let s1 = String::from("hello");
     let mut v = Vec::new();
